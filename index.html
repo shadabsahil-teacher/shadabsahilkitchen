@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadab Sahil Kitchen</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container">
+            <div class="logo-section">
+                <img src="shadab.jpg" alt="Shadab Sahil" class="owner-photo">
+                <div class="restaurant-name">Shadab Sahil Kitchen</div>
+            </div>
+            <div class="nav-links">
+                <a href="#home"><i class="fas fa-home"></i> Home</a>
+                <a href="#menu"><i class="fas fa-utensils"></i> Menu</a>
+                <a href="#contact"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </nav>
+    
+
+    <!-- Cart Container -->
+    <div class="cart-container" id="cartContainer">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be added here dynamically -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">₹0</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">
+                <i class="fas fa-shopping-bag"></i> Place Order
+            </button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Order from Shadab Kitchen with just a few clicks</h1>
+            <div class="search-container">
+                <input type="text" id="dishSearch" placeholder="Search for dishes (e.g., Kabab, Biryani)..." class="search-input">
+                <button onclick="searchDish()" class="search-btn">Search</button>
+            </div>
+            <div id="searchResult" class="search-result"></div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section" id="menu">
+        <div class="container">
+            <h2>Our Menu</h2>
+            <div class="menu-categories">
+                <button class="menu-tab active" data-category="afghan">Afghan Cuisine</button>
+                <button class="menu-tab" data-category="turkish">Turkish Cuisine</button>
+                <button class="menu-tab" data-category="drinks">Cold Drinks</button>
+            </div>
+            
+            <div class="menu-items afghan active">
+                <div class="menu-item">
+                    <img src="images/qabuli-uzbeki.jpg" alt="Qabuli Uzbeki" class="lazy" loading="lazy">
+                    <div class="item-details">
+                        <h3>Qabuli Uzbeki</h3>
+                        <p>Traditional Afghan rice dish with carrots and raisins</p>
+                        <span class="price">₹399</span>
+                        <div class="quantity-selector">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" value="1" min="1" max="10" class="qty-input">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button onclick="addToCart('Qabuli Uzbeki')" class="order-btn">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="images/mantoo.jpg" alt="Mantu" class="lazy" loading="lazy">
+                    <div class="item-details">
+                        <h3>Mantu</h3>
+                        <p>Steamed dumplings filled with spiced minced meat</p>
+                        <span class="price">₹299</span>
+                        <div class="quantity-selector">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" value="1" min="1" max="10" class="qty-input">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button onclick="addToCart('Mantu')" class="order-btn">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="images/chapli-kebab.jpg" alt="Chapli Kebab" class="lazy" loading="lazy">
+                    <div class="item-details">
+                        <h3>Chapli Kebab</h3>
+                        <p>Spiced minced meat patties with Afghan spices</p>
+                        <span class="price">₹349</span>
+                        <div class="quantity-selector">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" value="1" min="1" max="10" class="qty-input">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button onclick="addToCart('Chapli Kebab')" class="order-btn">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-items turkish">
+                <div class="menu-item">
+                    <img src="images/iskender-kebab.jpg" alt="Iskender Kebab" class="lazy" loading="lazy">
+                    <div class="item-details">
+                        <h3>Iskender Kebab</h3>
+                        <p>Sliced döner kebab with tomato sauce and butter</p>
+                        <span class="price">₹449</span>
+                        <div class="quantity-selector">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" value="1" min="1" max="10" class="qty-input">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button onclick="addToCart('Iskender Kebab')" class="order-btn">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="images/lahmacun.jpg" alt="Lahmacun" class="lazy" loading="lazy">
+                    <div class="item-details">
+                        <h3>Lahmacun</h3>
+                        <p>Turkish pizza with minced meat and vegetables</p>
+                        <span class="price">₹299</span>
+                        <div class="quantity-selector">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" value="1" min="1" max="10" class="qty-input">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button onclick="addToCart('Lahmacun')" class="order-btn">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="images/pide.jpg" alt="Turkish Pide" class="lazy" loading="lazy">
+                    <div class="item-details">
+                        <h3>Turkish Pide</h3>
+                        <p>Boat-shaped flatbread with various toppings</p>
+                        <span class="price">₹329</span>
+                        <div class="quantity-selector">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" value="1" min="1" max="10" class="qty-input">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button onclick="addToCart('Turkish Pide')" class="order-btn">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="images/adana-kebab.jpg" alt="Adana Kebab" class="lazy" loading="lazy">
+                    <div class="item-details">
+                        <h3>Adana Kebab</h3>
+                        <p>Spicy minced meat kebab on skewers</p>
+                        <span class="price">₹399</span>
+                        <div class="quantity-selector">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" value="1" min="1" max="10" class="qty-input">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button onclick="addToCart('Adana Kebab')" class="order-btn">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-items drinks">
+                <div class="menu-item">
+                    <img src="images/pepsi.jpg" alt="Pepsi" class="lazy" loading="lazy">
+                    <div class="item-details">
+                        <h3>Pepsi</h3>
+                        <p>Classic cola beverage</p>
+                        <div class="item-price">₹50</div>
+                        <div class="item-quantity">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" value="1" min="1" max="10" class="qty-input">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button class="order-btn" onclick="addToCart('Pepsi')">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="images/sprite.jpg" alt="Sprite" class="lazy" loading="lazy">
+                    <div class="item-details">
+                        <h3>Sprite</h3>
+                        <p>Refreshing lemon-lime soda</p>
+                        <div class="item-price">₹50</div>
+                        <div class="item-quantity">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" value="1" min="1" max="10" class="qty-input">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button class="order-btn" onclick="addToCart('Sprite')">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="images/coca-cola.jpg" alt="Coca Cola" class="lazy" loading="lazy">
+                    <div class="item-details">
+                        <h3>Coca Cola</h3>
+                        <p>Classic refreshing cola</p>
+                        <div class="item-price">₹50</div>
+                        <div class="item-quantity">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" value="1" min="1" max="10" class="qty-input">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button class="order-btn" onclick="addToCart('Coca Cola')">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <h2>Popular Categories</h2>
+        <div class="category-grid">
+            <div class="category-card">
+                <img src="images/qabuli-uzbeki.jpg" alt="Qabuli Uzbeki" class="lazy" loading="lazy">
+                <h3>Qabuli Uzbeki</h3>
+            </div>
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=500&q=80" alt="KFC Style Burger" class="lazy" loading="lazy">
+                <h3>KFC Style Burgers</h3>
+            </div>
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=500&q=80" alt="Burgers" class="lazy" loading="lazy">
+                <h3>Burgers</h3>
+            </div>
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=500&q=80" alt="Desserts" class="lazy" loading="lazy">
+                <h3>Desserts</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature">
+            <i class="fas fa-clock"></i>
+            <h3>Fast Delivery</h3>
+            <p>Quick delivery to your location</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-utensils"></i>
+            <h3>Quality Food</h3>
+            <p>From top rated restaurants</p>
+        </div>
+        <div class="feature">
+            <i class="fas fa-shield-alt"></i>
+            <h3>Safe & Secure</h3>
+            <p>Contactless delivery</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="contact-info">
+                <h3>Contact Us</h3>
+                <p>Email: shadabai892@gmail.com</p>
+                <p>Phone: +91 8860856316</p>
+                <p>Address: Lajpat Nagar, Delhi, India</p>
+            </div>
+            <div class="social-links">
+                <a href="mailto:shadabai892@gmail.com" class="social-link"><i class="fas fa-envelope"></i> Email</a>
+                <a href="tel:+918860856316" class="social-link"><i class="fas fa-phone"></i> Call</a>
+                <a href="https://maps.google.com/?q=Lajpat+Nagar,+Delhi,+India" target="_blank" class="social-link"><i class="fas fa-map-marker-alt"></i> Location</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Shadab Sahil Kitchen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Payment Modal -->
+    <div class="payment-modal" id="paymentModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-steps">
+                <div class="step active" data-step="1">1. Customer Details</div>
+                <div class="step" data-step="2">2. Payment Method</div>
+                <div class="step" data-step="3">3. Confirmation</div>
+            </div>
+
+            <!-- Step 1: Customer Details Form -->
+            <div class="modal-section customer-details active" id="customerDetails">
+                <h2>Enter Your Details</h2>
+                <form id="customerForm" class="customer-form">
+                    <div class="form-group">
+                        <label for="customerName">Full Name *</label>
+                        <input type="text" id="customerName" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="customerPhone">Phone Number *</label>
+                        <input type="tel" id="customerPhone" required placeholder="Enter your phone number" pattern="[0-9]{10}">
+                    </div>
+                    <div class="form-group">
+                        <label for="customerEmail">Email (Optional)</label>
+                        <input type="email" id="customerEmail" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="deliveryAddress">Delivery Address *</label>
+                        <textarea id="deliveryAddress" required placeholder="Enter your complete delivery address"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="deliveryInstructions">Delivery Instructions (Optional)</label>
+                        <textarea id="deliveryInstructions" placeholder="Any specific instructions for delivery"></textarea>
+                    </div>
+                    <button type="button" class="next-step-btn">Continue to Payment</button>
+                </form>
+            </div>
+
+            <!-- Step 2: Payment Options -->
+            <div class="modal-section payment-section" id="paymentSection">
+                <h2>Select Payment Method</h2>
+                <div class="payment-options">
+                    <div class="payment-option" data-payment="cod">
+                        <img src="https://img.icons8.com/ios/50/000000/cash-in-hand.png" alt="Cash on Delivery" class="lazy" loading="lazy">
+                        <span>Cash on Delivery</span>
+                    </div>
+                    <div class="payment-option" data-payment="gpay">
+                        <img src="https://img.icons8.com/color/50/000000/google-pay-india.png" alt="Google Pay" class="lazy" loading="lazy">
+                        <span>Google Pay</span>
+                        <small class="upi-id">UPI: 8860856316@paytm</small>
+                    </div>
+                    <div class="payment-option" data-payment="paytm">
+                        <img src="https://img.icons8.com/color/50/000000/paytm.png" alt="Paytm" class="lazy" loading="lazy">
+                        <span>Paytm</span>
+                        <small class="upi-id">Number: +91 8860856316</small>
+                    </div>
+                </div>
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <div class="order-details">
+                        <p class="item-name">Item: <span id="orderItemName"></span></p>
+                        <p class="item-price">Price: ₹<span id="orderItemPrice"></span></p>
+                    </div>
+                </div>
+                <div class="modal-buttons">
+                    <button class="back-step-btn">Back</button>
+                    <button class="next-step-btn">Continue to Confirmation</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Order Confirmation -->
+            <div class="modal-section confirmation-section" id="confirmationSection">
+                <h2>Confirm Your Order</h2>
+                <div class="confirmation-details">
+                    <div class="customer-summary">
+                        <h3>Delivery Details</h3>
+                        <p id="summaryName"></p>
+                        <p id="summaryPhone"></p>
+                        <p id="summaryEmail"></p>
+                        <p id="summaryAddress"></p>
+                        <p id="summaryInstructions"></p>
+                    </div>
+                    <div class="order-summary">
+                        <h3>Order Details</h3>
+                        <p id="summaryItem"></p>
+                        <p id="summaryPrice"></p>
+                        <p id="summaryPayment"></p>
+                    </div>
+                </div>
+                <div class="modal-buttons">
+                    <button class="back-step-btn">Back</button>
+                    <button class="confirm-payment">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("y-OIIbCFko_1RQDx7");
+        })();
+    </script>
+
+    <script>
+        // Payment Modal Functionality
+        const paymentModal = document.getElementById('paymentModal');
+        const closeModal = document.querySelector('.close-modal');
+        let selectedPayment = null;
+        let currentStep = 1;
+        let customerDetails = {};
+        let orderSummary = {};
+
+        // Function to send email
+        function sendOrderEmail(orderDetails) {
+            const templateParams = {
+                to_name: "Shadab Sahil Kitchen",
+                to_email: "shadabai892@gmail.com",
+                from_name: orderDetails.name,
+                customer_name: orderDetails.name,
+                customer_phone: orderDetails.phone,
+                customer_email: orderDetails.email,
+                delivery_address: orderDetails.address,
+                delivery_instructions: orderDetails.instructions,
+                order_items: orderDetails.items,
+                order_price: orderDetails.price,
+                payment_method: orderDetails.payment,
+                order_date: orderDetails.date
+            };
+
+            // Send email using EmailJS
+            emailjs.send('service_pw0kgm4', 'template_w2qfnt8', templateParams)
+                .then(function(response) {
+                    console.log('Order email sent successfully!', response.status, response.text);
+                }, function(error) {
+                    console.error('Failed to send order email:', error);
+                    alert('There was an error sending your order. Please try again or contact us directly.');
+                });
+        }
+
+        // Update order summary with quantity
+        function updateOrderSummary(itemName, itemPrice, quantity) {
+            document.getElementById('orderItemName').textContent = `${itemName} x${quantity}`;
+            document.getElementById('orderItemPrice').textContent = (parseFloat(itemPrice) * quantity).toFixed(2);
+        }
+
+        // Add click event to all menu items
+        document.querySelectorAll('.menu-item').forEach(item => {
+            const qtyInput = item.querySelector('.qty-input');
+            const minusBtn = item.querySelector('.qty-btn.minus');
+            const plusBtn = item.querySelector('.qty-btn.plus');
+
+            // Quantity buttons functionality
+            minusBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                let value = parseInt(qtyInput.value);
+                if (value > 1) {
+                    qtyInput.value = value - 1;
+                }
+            });
+
+            plusBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                let value = parseInt(qtyInput.value);
+                if (value < 10) {
+                    qtyInput.value = value + 1;
+                }
+            });
+
+            // Prevent item click when interacting with quantity input
+            qtyInput.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+
+            // Update modal with quantity when clicking item
+            item.addEventListener('click', () => {
+                const itemName = item.querySelector('h3').textContent;
+                const itemPrice = item.querySelector('.price').textContent.replace('₹', '');
+                const quantity = item.querySelector('.qty-input').value;
+                openPaymentModal(itemName, itemPrice, quantity);
+            });
+        });
+
+        function openPaymentModal(itemName, itemPrice, quantity) {
+            document.getElementById('orderItemName').textContent = `${itemName} x${quantity}`;
+            document.getElementById('orderItemPrice').textContent = (parseFloat(itemPrice) * parseInt(quantity)).toFixed(2);
+            paymentModal.style.display = 'flex';
+        }
+
+        closeModal.addEventListener('click', () => {
+            paymentModal.style.display = 'none';
+        });
+
+        // Payment option selection
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.payment-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                option.classList.add('selected');
+                selectedPayment = option.dataset.payment;
+            });
+        });
+
+        // Next step button functionality
+        document.querySelectorAll('.next-step-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                switch (currentStep) {
+                    case 1:
+                        // Get customer details
+                        customerDetails.name = document.getElementById('customerName').value;
+                        customerDetails.phone = document.getElementById('customerPhone').value;
+                        customerDetails.email = document.getElementById('customerEmail').value;
+                        customerDetails.address = document.getElementById('deliveryAddress').value;
+                        customerDetails.instructions = document.getElementById('deliveryInstructions').value;
+
+                        // Update customer summary
+                        document.getElementById('summaryName').textContent = customerDetails.name;
+                        document.getElementById('summaryPhone').textContent = customerDetails.phone;
+                        document.getElementById('summaryEmail').textContent = customerDetails.email;
+                        document.getElementById('summaryAddress').textContent = customerDetails.address;
+                        document.getElementById('summaryInstructions').textContent = customerDetails.instructions;
+
+                        // Show payment section
+                        document.querySelector('.customer-details').classList.remove('active');
+                        document.querySelector('.payment-section').classList.add('active');
+                        currentStep++;
+                        break;
+                    case 2:
+                        // Get order summary
+                        orderSummary.item = document.getElementById('orderItemName').textContent;
+                        orderSummary.price = document.getElementById('orderItemPrice').textContent;
+                        orderSummary.payment = selectedPayment;
+
+                        // Update order summary
+                        document.getElementById('summaryItem').textContent = orderSummary.item;
+                        document.getElementById('summaryPrice').textContent = orderSummary.price;
+                        document.getElementById('summaryPayment').textContent = orderSummary.payment;
+
+                        // Show confirmation section
+                        document.querySelector('.payment-section').classList.remove('active');
+                        document.querySelector('.confirmation-section').classList.add('active');
+                        currentStep++;
+                        break;
+                }
+            });
+        });
+
+        // Back step button functionality
+        document.querySelectorAll('.back-step-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                switch (currentStep) {
+                    case 2:
+                        // Show customer details section
+                        document.querySelector('.payment-section').classList.remove('active');
+                        document.querySelector('.customer-details').classList.add('active');
+                        currentStep--;
+                        break;
+                    case 3:
+                        // Show payment section
+                        document.querySelector('.confirmation-section').classList.remove('active');
+                        document.querySelector('.payment-section').classList.add('active');
+                        currentStep--;
+                        break;
+                }
+            });
+        });
+
+        // Confirm payment with email notification
+        document.querySelector('.confirm-payment').addEventListener('click', () => {
+            if (!selectedPayment) {
+                alert('Please select a payment method');
+                return;
+            }
+
+            // Prepare order details for email
+            const orderDetails = {
+                name: customerDetails.name,
+                phone: customerDetails.phone,
+                email: customerDetails.email || 'Not provided',
+                address: customerDetails.address,
+                instructions: customerDetails.instructions || 'No special instructions',
+                items: orderSummary.item,
+                price: orderSummary.price,
+                payment: orderSummary.payment,
+                date: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
+            };
+
+            // Send email notification
+            sendOrderEmail(orderDetails);
+
+            let message = '';
+            message += `Thank you for your order!\n\n`;
+            message += `Customer Name: ${orderDetails.name}\n`;
+            message += `Phone Number: ${orderDetails.phone}\n`;
+            message += `Email: ${orderDetails.email}\n`;
+            message += `Delivery Address: ${orderDetails.address}\n`;
+            message += `Delivery Instructions: ${orderDetails.instructions}\n\n`;
+            message += `Order Details:\n`;
+            message += `Item: ${orderDetails.items}\n`;
+            message += `Price: ₹${orderDetails.price}\n`;
+            message += `Payment Method: ${orderDetails.payment}\n`;
+            message += `Order Date: ${orderDetails.date}\n\n`;
+            message += `Order confirmation has been sent to our team. We will process your order shortly!`;
+
+            alert(message);
+            paymentModal.style.display = 'none';
+            selectedPayment = null;
+            document.querySelectorAll('.payment-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            currentStep = 1;
+            
+            // Reset form and modal
+            document.getElementById('customerForm').reset();
+            document.querySelector('.customer-details').classList.add('active');
+            document.querySelector('.payment-section').classList.remove('active');
+            document.querySelector('.confirmation-section').classList.remove('active');
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === paymentModal) {
+                paymentModal.style.display = 'none';
+            }
+        });
+    </script>
+
+    <script>
+        // Menu items array with images and prices
+        const menuItems = [
+            {
+                name: "Qabuli Uzbeki",
+                price: "₹399",
+                image: "images/qabuli-uzbeki.jpg",
+                description: "Traditional Afghan rice dish with carrots and raisins"
+            },
+            {
+                name: "Mantu",
+                price: "₹299",
+                image: "images/mantoo.jpg",
+                description: "Steamed dumplings filled with spiced minced meat"
+            },
+            {
+                name: "Chapli Kebab",
+                price: "₹349",
+                image: "images/chapli-kebab.jpg",
+                description: "Spiced minced meat patties with Afghan spices"
+            },
+            {
+                name: "Iskender Kebab",
+                price: "₹449",
+                image: "images/iskender-kebab.jpg",
+                description: "Sliced döner kebab with tomato sauce and butter"
+            },
+            {
+                name: "Lahmacun",
+                price: "₹299",
+                image: "images/lahmacun.jpg",
+                description: "Turkish pizza with minced meat and vegetables"
+            },
+            {
+                name: "Turkish Pide",
+                price: "₹329",
+                image: "images/pide.jpg",
+                description: "Boat-shaped flatbread with various toppings"
+            },
+            {
+                name: "Coca Cola",
+                price: "₹50",
+                image: "images/coca-cola.jpg",
+                description: "Classic refreshing cola"
+            },
+            {
+                name: "Pepsi",
+                price: "₹50",
+                image: "images/pepsi.jpg",
+                description: "Classic cola beverage"
+            },
+            {
+                name: "Sprite",
+                price: "₹50",
+                image: "images/sprite.jpg",
+                description: "Refreshing lemon-lime soda"
+            }
+        ];
+
+        let cart = [];
+        let cartOpen = false;
+
+        function toggleCart() {
+            const cartContainer = document.getElementById('cartContainer');
+            cartOpen = !cartOpen;
+            cartContainer.style.transform = cartOpen ? 'translateX(0)' : 'translateX(100%)';
+        }
+
+        function addToCart(itemName) {
+            const item = menuItems.find(item => item.name === itemName);
+            if (item) {
+                // Add animation effect to button
+                const btn = event.target;
+                btn.classList.add('adding');
+                setTimeout(() => btn.classList.remove('adding'), 1000);
+
+                // Add item to cart
+                const existingItem = cart.find(cartItem => cartItem.name === itemName);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        name: item.name,
+                        price: parseFloat(item.price.replace('₹', '')),
+                        quantity: 1,
+                        image: item.image
+                    });
+                }
+
+                // Update cart UI
+                updateCartUI();
+                
+                // Show success message
+                showNotification(`${itemName} added to cart!`);
+            }
+        }
+
+        function updateCartUI() {
+            const cartItems = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            // Update cart count
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Update cart items
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}" class="lazy" loading="lazy">
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        <div class="cart-item-price">₹${item.price}</div>
+                        <div class="cart-item-controls">
+                            <button class="qty-btn minus">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                    </div>
+                    <button class="remove-item" onclick="removeItem('${item.name}')">×</button>
+                </div>
+            `).join('');
+            
+            // Update total
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `₹${total}`;
+        }
+
+        function updateQuantity(itemName, change) {
+            const item = cart.find(item => item.name === itemName);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeItem(itemName);
+                } else {
+                    updateCartUI();
+                }
+            }
+        }
+
+        function removeItem(itemName) {
+            cart = cart.filter(item => item.name !== itemName);
+            updateCartUI();
+            showNotification(`${itemName} removed from cart`);
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!', 'error');
+                return;
+            }
+            
+            // Here you can add the checkout logic
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            alert(`Order placed successfully!\nTotal Amount: ₹${total}`);
+            cart = [];
+            updateCartUI();
+            toggleCart();
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                ${message}
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => notification.remove(), 300);
+                }, 2000);
+            }, 100);
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
